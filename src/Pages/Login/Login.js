@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Spinner } from 'react-bootstrap';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import auth from '../../firebase.init';
 
 const Login = () => {
 
@@ -8,13 +10,17 @@ const Login = () => {
     const passwordRef = useRef('')
     const navigate = useNavigate()
 
+    const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth)
+
     const handleFormSubmit = e =>{
         e.preventDefault()
         const email = emailRef.current.value
         const password = passwordRef.current.value
-        console.log(email, password);
+        signInWithEmailAndPassword(email, password)
     }
 
+    if(user) navigate('/home')
+    
     return (
         <div>
             <h1 className='text-primary text-center my-3'>Please Login</h1>
@@ -35,6 +41,10 @@ const Login = () => {
                     Submit
                 </Button>
             </Form>
+            {
+                loading && <Spinner className='d-block mx-auto' animation = 'border'></Spinner>
+            }
+            <p className='text-center text-danger' >{error && error.message}</p>
             <p className='text-center'>New to Genius Car? <span onClick={() => navigate('/register')} className='text-warning' role='button'>Sign Up</span></p>
         </div>
     );
