@@ -15,7 +15,7 @@ code {
 .services-container{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin: 0 20px;
+  margin: 0 5px;
   gap: 40px;
 }
 
@@ -23,7 +23,7 @@ code {
   border: 1px solid slategray;
   border-radius: 10px;
   margin: 0 auto;
-  width: 360px;
+  max-width: 360px;
   text-align: center;
 }
 
@@ -33,4 +33,16 @@ code {
 
 .services-card img {
   border-radius: 10px 10px 0 0;
+}
+
+@media only screen and (max-width: 476px) {
+  .services-container{
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media only screen and (min-width: 477px) and (max-width: 768px) {
+  .services-container{
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
