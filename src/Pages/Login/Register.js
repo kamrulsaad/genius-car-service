@@ -4,6 +4,7 @@ import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-fireb
 import auth from '../../firebase.init'
 import { Spinner } from 'react-bootstrap';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import PageTitle from '../Shared/PageTItle/PageTitle';
 
 const Register = () => {
 
@@ -28,6 +29,7 @@ const Register = () => {
 
     return (
         <div className='form-container'>
+            <PageTitle page="Register"></PageTitle>
             <h1 className='my-2 text-center text-primary'>Please Register</h1>
             <form onSubmit={handleFormSubmit}>
                 <label htmlFor="name">Your Name</label>

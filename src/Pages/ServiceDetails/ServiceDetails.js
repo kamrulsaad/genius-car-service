@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import PageTitle from '../Shared/PageTItle/PageTitle';
 
 const ServiceDetails = () => {
 
@@ -7,6 +8,7 @@ const ServiceDetails = () => {
 
     return (
         <div>
+            <PageTitle page="Service Details"></PageTitle>
             <h1>Welcome to Service {serviceId}</h1>
             <div className="text-center">
                 <Link to='/checkout'>
