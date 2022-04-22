@@ -1,6 +1,6 @@
 import { signOut } from 'firebase/auth';
 import React from 'react';
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../../firebase.init';
@@ -23,14 +23,14 @@ const Header = () => {
                         <Nav.Link href="home#experts">Experts</Nav.Link> */}
                         <Nav.Link href="home#services">Services</Nav.Link>
                         <Nav.Link href="home#experts">Experts</Nav.Link>
-                        <Nav.Link as={Link} to="/addServices">Add Services</Nav.Link>
-                        <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                        </NavDropdown>
+                        {
+                            user && (
+                                <div className='d-md-flex'>
+                                    <Nav.Link as={Link} to="/addServices">Add Services</Nav.Link>
+                                    <Nav.Link as={Link} to="/manageServices">Manage Services</Nav.Link>
+                                </div>
+                            )
+                        }
                     </Nav>
                     <Nav>
                         <Nav.Link as={Link} to="/about">About</Nav.Link>
