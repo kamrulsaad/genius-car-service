@@ -11,7 +11,9 @@ const Orders = () => {
     useEffect(() => {
         const getOrders = async () => {
             const url = `http://localhost:5000/orders?email=${user.email}`
-            const { data } = await axios.get(url)
+            const { data } = await axios.get(url, { headers : {
+                authorization : `Bearer ${localStorage.getItem('accessToken')}`
+            }})
             setOrders(data)
         }
         getOrders()

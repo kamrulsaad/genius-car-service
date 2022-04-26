@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import Loading from '../Shared/Loading/Loading';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import 'react-toastify/dist/ReactToastify.css';
 import PageTitle from '../Shared/PageTItle/PageTitle';
+import axios from 'axios';
 
 const Login = () => {
 
@@ -18,18 +19,26 @@ const Login = () => {
 
     const from = location?.state?.from?.pathname || '/'
 
-    const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth)
-    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth)
+    const [signInWithEmailAndPassword, user, loading, loadingError] = useSignInWithEmailAndPassword(auth)
+    const [sendPasswordResetEmail, sending, sendingError] = useSendPasswordResetEmail(auth)
+
+    const error = loadingError || sendingError;
+
+    useEffect(() => {
+        if (user) navigate(from, { replace: true });
+    },[user, navigate, from])
 
     if (loading || sending) {
         return <Loading></Loading>
     }
 
-    const handleFormSubmit = e => {
+    const handleFormSubmit = async e => {
         e.preventDefault()
         const email = emailRef.current.value
         const password = passwordRef.current.value
-        signInWithEmailAndPassword(email, password)
+        await signInWithEmailAndPassword(email, password)
+        const {data} = await axios.post('http://localhost:5000/login', {email})
+        localStorage.setItem('accessToken' , data)
     }
 
     const resetPassword = async () => {
@@ -44,8 +53,6 @@ const Login = () => {
             position: "top-center", transition: Slide
         })
     }
-
-    if (user) navigate(from, { replace: true });
 
     return (
         <div>

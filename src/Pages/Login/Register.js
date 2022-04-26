@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth'
 import auth from '../../firebase.init'
@@ -16,7 +16,9 @@ const Register = () => {
     const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth,{sendEmailVerification : true});
     const [updateProfile] = useUpdateProfile(auth)
 
-    if(user) navigate(from, {replace: true})
+    useEffect(() => {
+        if(user) navigate(from, {replace: true})
+    },[user, navigate, from])
 
     const handleFormSubmit = async e => {
         e.preventDefault()
