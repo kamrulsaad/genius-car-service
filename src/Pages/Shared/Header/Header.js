@@ -26,6 +26,7 @@ const Header = () => {
                         {
                             user && (
                                 <div className='d-md-flex'>
+                                    <Nav.Link as={Link} to="/orders">Orders</Nav.Link>
                                     <Nav.Link as={Link} to="/addServices">Add Services</Nav.Link>
                                     <Nav.Link as={Link} to="/manageServices">Manage Services</Nav.Link>
                                 </div>
