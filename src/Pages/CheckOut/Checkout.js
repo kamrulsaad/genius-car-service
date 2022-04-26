@@ -5,6 +5,7 @@ import PageTitle from '../Shared/PageTItle/PageTitle';
 import {useAuthState} from 'react-firebase-hooks/auth'
 import auth from '../../firebase.init'
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Checkout = () => {
 
@@ -23,7 +24,9 @@ const Checkout = () => {
             serviceId
         }
         axios.post('http://localhost:5000/orders', order)
-        .then(res => console.log(res))
+        .then(res => {
+            if(res.data.insertedId) toast('Your Order is booked', { position : 'top-center' })})
+        e.target.reset()
     }
 
     return (
@@ -43,6 +46,7 @@ const Checkout = () => {
                 <input className='w-100 mb-2 py-2 fs-5 rounded px-1' type="text" name='address' placeholder='Address'required /> <br />
                 <input type="submit" className='btn btn-primary  rounded d-block mx-auto' value='Place Order' />
             </form>
+            <ToastContainer/>
         </div>
     );
 };

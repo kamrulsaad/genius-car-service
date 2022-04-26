@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import google from '../../../src/images/Social/google.png'
 import facebook from '../../../src/images/Social/facebook.jpg'
 import github from '../../../src/images/Social/github.png'
@@ -19,7 +19,9 @@ const SocialLogin = () => {
     const loading = googleLoading || githubLoading;
     const user = googleUser || githubUser ;
 
-    if(user) navigate(from, {replace: true})
+    useEffect(() => {
+        if(user) navigate(from, {replace: true})
+    } ,[user,from,navigate])
 
     return (
         <div>
