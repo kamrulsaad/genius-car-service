@@ -5,6 +5,7 @@ import auth from '../../firebase.init'
 import { Spinner } from 'react-bootstrap';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import PageTitle from '../Shared/PageTItle/PageTitle';
+import useToken from '../../hooks/useToken';
 
 const Register = () => {
 
@@ -15,10 +16,11 @@ const Register = () => {
     const from = location?.state?.from?.pathname || '/'
     const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth,{sendEmailVerification : true});
     const [updateProfile] = useUpdateProfile(auth)
+    const [token] = useToken(user)
 
     useEffect(() => {
-        if(user) navigate(from, {replace: true})
-    },[user, navigate, from])
+        if (token) navigate(from, { replace: true });
+    },[token, navigate, from])
 
     const handleFormSubmit = async e => {
         e.preventDefault()

@@ -6,6 +6,7 @@ import { useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/a
 import auth from '../../firebase.init'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
+import useToken from '../../hooks/useToken';
 
 const SocialLogin = () => {
 
@@ -18,10 +19,11 @@ const SocialLogin = () => {
     const error = googleError || githubError ;
     const loading = googleLoading || githubLoading;
     const user = googleUser || githubUser ;
+    const [token] = useToken(user)
 
     useEffect(() => {
-        if(user) navigate(from, {replace: true})
-    } ,[user,from,navigate])
+        if (token) navigate(from, { replace: true });
+    },[token, navigate, from])
 
     return (
         <div>

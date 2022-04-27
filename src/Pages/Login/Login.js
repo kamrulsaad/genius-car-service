@@ -8,7 +8,7 @@ import Loading from '../Shared/Loading/Loading';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import 'react-toastify/dist/ReactToastify.css';
 import PageTitle from '../Shared/PageTItle/PageTitle';
-import axios from 'axios';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
 
@@ -21,12 +21,13 @@ const Login = () => {
 
     const [signInWithEmailAndPassword, user, loading, loadingError] = useSignInWithEmailAndPassword(auth)
     const [sendPasswordResetEmail, sending, sendingError] = useSendPasswordResetEmail(auth)
+    const [token] = useToken(user)
 
     const error = loadingError || sendingError;
 
     useEffect(() => {
-        if (user) navigate(from, { replace: true });
-    },[user, navigate, from])
+        if (token) navigate(from, { replace: true });
+    },[token, navigate, from])
 
     if (loading || sending) {
         return <Loading></Loading>
@@ -37,8 +38,6 @@ const Login = () => {
         const email = emailRef.current.value
         const password = passwordRef.current.value
         await signInWithEmailAndPassword(email, password)
-        const {data} = await axios.post('https://genius-car-service-by-saad.herokuapp.com/login', {email})
-        localStorage.setItem('accessToken' , data)
     }
 
     const resetPassword = async () => {

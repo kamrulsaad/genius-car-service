@@ -31,6 +31,9 @@ const Orders = () => {
     return (
         <div>
             <h1 className='text-center'>Orders: {orders.length} </h1>
+            {
+                orders.map(order => <p className='text-center' key={order._id}>{order.name} : {order.service}</p> )
+            }
         </div>
     );
 };
