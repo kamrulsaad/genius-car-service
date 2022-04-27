@@ -5,7 +5,7 @@ import PageTitle from '../Shared/PageTItle/PageTitle';
 import {useAuthState} from 'react-firebase-hooks/auth'
 import auth from '../../firebase.init'
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { Slide, toast, ToastContainer } from 'react-toastify';
 
 const Checkout = () => {
 
@@ -25,7 +25,7 @@ const Checkout = () => {
         }
         axios.post('http://localhost:5000/orders', order)
         .then(res => {
-            if(res.data.insertedId) toast('Your Order is booked', { position : 'top-center' })})
+            if(res.data.insertedId) toast('Your Order is booked', { position : 'top-center', transition: Slide })})
         e.target.reset()
     }
 
