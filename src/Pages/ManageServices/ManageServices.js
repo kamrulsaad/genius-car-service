@@ -8,7 +8,7 @@ const ManageServices = () => {
     const [services, setServices] = useServices()
 
     const handleDelete = id => {
-        const url = `http://localhost:5000/service/${id}`
+        const url = `https://genius-car-service-by-saad.herokuapp.com/service/${id}`
         fetch(url, {
             method: "DELETE"
         })

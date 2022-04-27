@@ -23,7 +23,7 @@ const Checkout = () => {
             phone : e.target.phone.value,
             serviceId
         }
-        axios.post('http://localhost:5000/orders', order)
+        axios.post('https://genius-car-service-by-saad.herokuapp.com/orders', order)
         .then(res => {
             if(res.data.insertedId) toast('Your Order is booked', { position : 'top-center', transition: Slide })})
         e.target.reset()

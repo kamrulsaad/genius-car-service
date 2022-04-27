@@ -1,11 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form'
+import { Slide, toast, ToastContainer } from 'react-toastify';
 import PageTitle from '../Shared/PageTItle/PageTitle';
 
 const AddServices = () => {
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
-        const url = "http://localhost:5000/services"
+        const url = "https://genius-car-service-by-saad.herokuapp.com/services"
         fetch(url, {
             method: 'POST',
             headers: {
@@ -14,7 +15,11 @@ const AddServices = () => {
             body : JSON.stringify(data)
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            if(data.acknowledged){
+                toast("New Service Added", {position: 'top-center', transition: Slide})
+            }
+        })
     }
 
     return (
@@ -28,6 +33,7 @@ const AddServices = () => {
                 <input placeholder='Photo URL' className='p-2 border-1 rounded' {...register("img")} />
                 <input placeholder='' className='p-2 border-1 rounded bg-primary text-white' type="submit" value='Add New Service'/>
             </div>
+            <ToastContainer/>
         </form>
     );
 };
